@@ -38,7 +38,7 @@ class ResponseFormatter {
         page,
         limit,
         total,
-        totalPages: Math.ceil(total / limit),
+        totalPages: limit > 0 ? Math.ceil(total / limit) : 0,
       },
       statusCode,
       timestamp: new Date().toISOString(),
