@@ -61,6 +61,7 @@ class RabbitMQConnection {
 			this.connection.on("close", () => {
 				logger.warn("RabbitMQ connection closed")
 				this.connection = null
+				this.channel = null
 				this._scheduleReconnect()
 			})
 
