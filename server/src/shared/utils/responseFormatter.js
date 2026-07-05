@@ -29,9 +29,10 @@ class ResponseFormatter {
     };
   }
 
-  static paginated(data = null, page, limit, total) {
+  static paginated(data = null, page, limit, total, message = "Success", statusCode = 200) {
     return {
       success: true,
+      message,
       data,
       pagination: {
         page,
@@ -39,6 +40,7 @@ class ResponseFormatter {
         total,
         totalPages: Math.ceil(total / limit),
       },
+      statusCode,
       timestamp: new Date().toISOString(),
     };
   }
