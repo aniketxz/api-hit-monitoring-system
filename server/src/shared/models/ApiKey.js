@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import SecurityUtils from "../utils/SecurityUtils.js";
+import SecurityUtils from "../utils/securityUtils.js";
 
 /**
  * MongoDB schema for API keys
