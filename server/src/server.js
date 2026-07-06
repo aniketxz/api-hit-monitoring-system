@@ -95,29 +95,40 @@ async function startServer() {
       logger.info(`API available at: http://localhost:${config.port}`);
     });
 
-    const gracefulShutdown = async (signal) => {
-      logger.info(`${signal} received, shutting down gracefully...`);
+let isShuttingDown = false;
 
-      server.close(async () => {
-        logger.info("HTTP server closed");
+const gracefulShutdown = async (signal) => {
+  if (isShuttingDown) {
+    logger.warn(`${signal} received but shutdown already in progress`);
+    return;
+  }
+  isShuttingDown = true;
 
-        try {
-          await mongodb.disconnect();
-          await postgres.close();
-          await rabbitmq.close();
-          logger.info("All connections closed, exiting process");
-          process.exit(0);
-        } catch (error) {
-          logger.error("Error during shutdown:", error);
-          process.exit(1);
-        }
-      });
+  logger.info(`${signal} received, shutting down gracefully...`);
 
-      setTimeout(() => {
-        logger.error("Forced shutdown");
-        process.exit(1);
-      }, 10000);
-    };
+  server.close(async (err) => {
+    if (err) {
+      logger.error("Error closing HTTP server:", err);
+    }
+    logger.info("HTTP server closed");
+
+    try {
+      await mongodb.disconnect();
+      await postgres.close();
+      await rabbitmq.close();
+      logger.info("All connections closed, exiting process");
+      process.exit(0);
+    } catch (error) {
+      logger.error("Error during shutdown:", error);
+      process.exit(1);
+    }
+  });
+
+  setTimeout(() => {
+    logger.error("Forced shutdown");
+    process.exit(1);
+  }, 10000);
+};
 
     process.on("SIGTERM", () => {
       gracefulShutdown("SIGTERM");
