@@ -20,6 +20,10 @@ const requestLogger = (req, res, next) => {
         status: req.statusCode,
         duration,
       },
+      { // replacing global logger
+        ip: req.ip,
+        userAgent: req.get("user-agent"),
+      },
     );
   });
 

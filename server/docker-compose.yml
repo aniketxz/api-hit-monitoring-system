@@ -81,6 +81,7 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: api-monitoring-app
+    # remove this command before deployment
     command: npx nodemon -L src/server.js
     environment:
       NODE_ENV: production

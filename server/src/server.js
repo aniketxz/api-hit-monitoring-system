@@ -10,6 +10,7 @@ import postgres from "./shared/config/postgres.js";
 import rabbitmq from "./shared/config/rabbitmq.js";
 import errorHandler from "./shared/middlewares/errorHandler.js";
 import ResponseFormatter from "./shared/utils/responseFormatter.js";
+import { requestLogger } from "./shared/middlewares/requestLogger.js";
 
 // Routers
 import authRouter from "./services/auth/routes/authRouter.js";
@@ -36,13 +37,7 @@ app.use(express.urlencoded({ extended: true }));
 /**
  * Request logging middleware
  */
-app.use((req, res, next) => {
-  logger.info(`${req.method} ${req.path}`, {
-    ip: req.ip,
-    userAgent: req.headers["user-agent"],
-  });
-  next();
-});
+app.use(requestLogger);
 
 /**
  * Health check endpoint

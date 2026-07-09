@@ -75,7 +75,7 @@ class MongoUserRepository extends BaseRepository {
       const user = await this.model.findOne({ email });
       return user;
     } catch (error) {
-      logger.error("Error finding user by username", error);
+      logger.error("Error finding user by email", error);
       throw error;
     }
   }

@@ -34,9 +34,12 @@ const config = {
   },
 
   jwt: {
-    secret:
-      process.env.JWT_SECRET ||
-      "fcdd971a37c2b58799a8fdf9b05399d29fd3d285a31f3d6d627223d4a023dedc",
+    secret: (() => {
+      if (!process.env.JWT_SECRET) {
+        throw new Error("JWT_SECRET environment variable is required");
+      }
+      return process.env.JWT_SECRET;
+    })(),
     expiresIn: process.env.JWT_EXPIRES_IN || "24h",
   },
 
@@ -46,7 +49,7 @@ const config = {
     maxRequests: parseInt(process.env.RATE_LIMIT_MAX_REQUESTS || "1000", 10), // 100 req / 15 min per IP
   },
 
-	// Cookie
+  // Cookie
   cookie: {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
