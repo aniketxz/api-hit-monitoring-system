@@ -29,7 +29,14 @@ class ResponseFormatter {
     };
   }
 
-  static paginated(data = null, page, limit, total, message = "Success", statusCode = 200) {
+  static paginated(
+    data = null,
+    page,
+    limit,
+    total,
+    message = "Success",
+    statusCode = 200,
+  ) {
     return {
       success: true,
       message,
