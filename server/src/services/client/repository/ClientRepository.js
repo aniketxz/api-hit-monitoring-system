@@ -38,7 +38,7 @@ class MongoClientRepository extends BaseClientRepository {
     try {
       const client = await this.model.findById(clientId);
 
-      logger.info("Client details from mongodb", client);
+      logger.info("Client details from mongodb", { clientId: client?._id });
 
       return client;
     } catch (error) {
@@ -56,7 +56,7 @@ class MongoClientRepository extends BaseClientRepository {
     try {
       const client = await this.model.findOne({ slug });
       return client;
-    } catch {
+    } catch (error) {
       logger.error("Error finding client by slug:", error);
       throw error;
     }
@@ -77,7 +77,7 @@ class MongoClientRepository extends BaseClientRepository {
         .sort(sort)
         .skip(skip)
         .limit(limit)
-        .select("-_v");
+        .select("__v");
 
       return clients;
     } catch (error) {

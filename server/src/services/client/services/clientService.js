@@ -109,14 +109,14 @@ export class ClientService {
 
   async createClientUser(clientId, userData, adminUser) {
     try {
-      const client = this.clientRepository.findById(clientId);
+      const client = await this.clientRepository.findById(clientId);
 
       if (!client) {
         throw new AppError("Client not found", 404);
       }
 
       if (!this.canUserAccessClient(adminUser, clientId)) {
-        throw new AppError("Access denied", 403, error);
+        throw new AppError("Access denied", 403);
       }
 
       const {
