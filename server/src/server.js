@@ -14,6 +14,7 @@ import { requestLogger } from "./shared/middlewares/requestLogger.js";
 
 // Routers
 import authRouter from "./services/auth/routes/authRouter.js";
+import clientRouter from "./services/client/routes/clientRoutes.js";
 
 /**
  * Init express app
@@ -80,6 +81,7 @@ app.get("/", (req, res) => {
  * API Routes
  */
 app.use("/api/auth", authRouter);
+app.use("/api", clientRouter);
 
 /**
  * 404 Handler
