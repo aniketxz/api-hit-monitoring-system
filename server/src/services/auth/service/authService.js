@@ -3,6 +3,7 @@ import bcrypt from "bcryptjs";
 import config from "../../../shared/config/index.js";
 import logger from "../../../shared/config/logger.js";
 import AppError from "../../../shared/utils/AppError.js";
+import { APPLICATION_ROLES } from "../../../shared/constants/roles.js";
 
 export class AuthService {
   constructor(userRepository) {
@@ -26,6 +27,11 @@ export class AuthService {
     return jwt.sign(payload, config.jwt.secret, { expiresIn: config.jwt.expiresIn });
   }
 
+  /**
+   * Formats the user object for response by removing sensitive information
+   * @param {Object} user - The user object to be formatted
+   * @returns {Object}
+   */
   formatUserForResponse(user) {
     const userObj = user.toObject ? user.toObject() : { ...user };
     delete userObj.password;
@@ -135,6 +141,20 @@ export class AuthService {
     } catch (error) {
       logger.error("Error getting user profile", error);
       throw error;
+    }
+  }
+
+  async checkSuperAdminPermissions(userId) {
+    try {
+      const user = await this.userRepository.findById(userId);
+      if (!user) {
+        throw new AppError("User not found", 404);
+      }
+
+      return user.role === APPLICATION_ROLES.SUPER_ADMIN;
+    } catch (error) {
+      logger.errror("Error checking super admin permissions", error);
+      throw Error;
     }
   }
 }

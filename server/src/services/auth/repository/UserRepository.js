@@ -95,4 +95,4 @@ class MongoUserRepository extends BaseRepository {
   }
 }
 
-export { MongoUserRepository };
+export default new MongoUserRepository();
