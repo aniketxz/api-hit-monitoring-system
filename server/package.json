@@ -9,7 +9,11 @@
 		"dev": "nodemon src/server.js",
 		"processor": "node src/modules/processor/consumer.js",
 		"init": "node init-system.js",
-		"init:env": "node init-system.js --generate-env"
+		"init:env": "node init-system.js --generate-env",
+		"format": "prettier --write .",
+		"format:check": "prettier --check .",
+		"lint": "eslint .",
+		"lint:fix": "eslint . --fix"
 	},
 	"keywords": [],
 	"author": "aniketxz",
@@ -30,6 +34,11 @@
 		"winston": "^3.19.0"
 	},
 	"devDependencies": {
-		"nodemon": "^3.1.14"
+		"@eslint/js": "^10.0.1",
+		"eslint": "^10.7.0",
+		"eslint-config-prettier": "^10.1.8",
+		"globals": "^17.7.0",
+		"nodemon": "^3.1.14",
+		"prettier": "^3.9.5"
 	}
 }

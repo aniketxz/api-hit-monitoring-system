@@ -6,9 +6,9 @@ services:
       POSTGRES_DB: api_monitoring
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres_pass
-      POSTGRES_INITDB_ARGS: "--encoding=UTF-8"
+      POSTGRES_INITDB_ARGS: '--encoding=UTF-8'
     ports:
-      - "5432:5432"
+      - '5432:5432'
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./scripts/init-postgres.sql:/docker-entrypoint-initdb.d/init-postgres.sql
@@ -16,7 +16,7 @@ services:
       - api-monitoring-network
     restart: unless-stopped
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres -d api_monitoring"]
+      test: ['CMD-SHELL', 'pg_isready -U postgres -d api_monitoring']
       interval: 10s
       timeout: 5s
       retries: 5
@@ -24,14 +24,14 @@ services:
     image: mongo:6.0
     container_name: api-monitoring-mongo
     ports:
-      - "27017:27017"
+      - '27017:27017'
     volumes:
       - mongo_data:/data/db
     networks:
       - api-monitoring-network
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      test: ['CMD', 'mongosh', '--eval', "db.adminCommand('ping')"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -46,15 +46,15 @@ services:
       RABBITMQ_DEFAULT_PASS: rabbitmq_pass
       RABBITMQ_DEFAULT_VHOST: api_monitoring
     ports:
-     - "5672:5672" # AMQP port
-     - "15672:15672" # Management UI
+      - '5672:5672' # AMQP port
+      - '15672:15672' # Management UI
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq
     networks:
       - api-monitoring-network
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      test: ['CMD', 'rabbitmq-diagnostics', '-q', 'ping']
       interval: 30s
       timeout: 10s
       retries: 5
@@ -67,7 +67,7 @@ services:
       PGADMIN_DEFAULT_EMAIL: admin@example.com
       PGADMIN_DEFAULT_PASSWORD: admin_pass
     ports:
-      - "8080:80"
+      - '8080:80'
     volumes:
       - pgadmin_data:/var/lib/pgadmin
     networks:
@@ -105,7 +105,7 @@ services:
       RATE_LIMIT_WINDOW_MS: 60000
       RATE_LIMIT_MAX_REQUESTS: 100
     ports:
-      - "5000:5000"
+      - '5000:5000'
     volumes:
       - ./src:/app/src
       - ./logs:/app/logs
@@ -121,7 +121,7 @@ services:
         condition: service_healthy
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      test: ['CMD', 'curl', '-f', 'http://localhost:5000/health']
       interval: 30s
       timeout: 10s
       retries: 3

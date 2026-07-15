@@ -1,6 +1,6 @@
 {
-  "watch": ["src"],
-  "ext": "js,json",
-  "legacyWatch": true,
-  "delay": 1000
+	"watch": ["src"],
+	"ext": "js,json",
+	"legacyWatch": true,
+	"delay": 1000
 }
