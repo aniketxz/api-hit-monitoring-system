@@ -72,7 +72,7 @@ export class AuthController {
 				maxAge: config.cookie.expiresIn,
 			});
 
-			res.status(200).json(ResponseFormatter.success(user, 'User loggedIn successfully', 200));
+			res.status(200).json(ResponseFormatter.success(user, 'User logged in successfully', 200));
 		} catch (error) {
 			next(error);
 		}
@@ -92,7 +92,7 @@ export class AuthController {
 	async logout(req, res, next) {
 		try {
 			res.clearCookie('authToken');
-			res.status(200).json(ResponseFormatter.success({}, 'Logout successfull', 200));
+			res.status(200).json(ResponseFormatter.success({}, 'Logged out successfully', 200));
 		} catch (error) {
 			next(error);
 		}
