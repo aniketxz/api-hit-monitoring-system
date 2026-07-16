@@ -96,12 +96,8 @@ userSchema.pre('save', async function () {
 		return;
 	}
 
-	try {
-		// bcrypt.hash can generate salt internally.
-		this.password = await bcrypt.hash(this.password, 10);
-	} catch (error) {
-		throw error;
-	}
+	// bcrypt.hash can generate salt internally.
+	this.password = await bcrypt.hash(this.password, 10);
 });
 
 userSchema.index({ clientId: 1, isActive: 1 });

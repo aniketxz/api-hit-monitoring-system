@@ -119,7 +119,22 @@ export class ClientService {
 				throw new AppError('Access denied', 403);
 			}
 
-			const { username, email, password, role = APPLICATION_ROLES.CLIENT_VIEWER } = userData;
+			if (
+				adminUser.role !== APPLICATION_ROLES.SUPER_ADMIN &&
+				adminUser.role !== APPLICATION_ROLES.CLIENT_ADMIN
+			) {
+				throw new AppError(
+					'Access denied - Only Super Admin and Client Admin can manage users',
+					403,
+				);
+			}
+
+			const {
+				username,
+				email,
+				password,
+				role = APPLICATION_ROLES.CLIENT_VIEWER,
+			} = userData;
 
 			if (!isValidClientRole(role)) {
 				throw new AppError('Invalid role for client user', 400);
@@ -178,7 +193,8 @@ export class ClientService {
 			}
 
 			if (!(
-				user.role === APPLICATION_ROLES.SUPER_ADMIN || user.role === APPLICATION_ROLES.CLIENT_ADMIN
+				user.role === APPLICATION_ROLES.SUPER_ADMIN ||
+				user.role === APPLICATION_ROLES.CLIENT_ADMIN
 			)) {
 				throw new AppError(
 					'Access denied - Only Super Admin and Client Admin can create API keys',

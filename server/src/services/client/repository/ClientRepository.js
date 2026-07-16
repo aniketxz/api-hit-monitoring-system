@@ -77,7 +77,7 @@ class MongoClientRepository extends BaseClientRepository {
 				.sort(sort)
 				.skip(skip)
 				.limit(limit)
-				.select('__v');
+				.select('-__v');
 
 			return clients;
 		} catch (error) {

@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import config from '../../../shared/config/index.js';
 import logger from '../../../shared/config/logger.js';
-import AppError from '../../../shared/utils/AppError.js';
+import AppError from '../../../shared/utils/appError.js';
 import { APPLICATION_ROLES } from '../../../shared/constants/roles.js';
 
 export class AuthService {
@@ -125,7 +125,7 @@ export class AuthService {
 				token,
 			};
 		} catch (error) {
-			logger.error('Error in register service', error);
+			logger.error('Error in login service', error);
 			throw error;
 		}
 	}
