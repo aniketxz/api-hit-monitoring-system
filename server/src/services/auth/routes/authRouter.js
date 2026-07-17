@@ -30,7 +30,9 @@ router.post('/login', validate(loginSchema), (req, res, next) =>
 	authController.login(req, res, next),
 );
 
-router.get('/profile', authenticate, (req, res, next) => authController.getProfile(req, res, next));
+router.get('/profile', authenticate, (req, res, next) =>
+	authController.getProfile(req, res, next),
+);
 
 router.get('/logout', (req, res, next) => authController.logout(req, res, next));
 

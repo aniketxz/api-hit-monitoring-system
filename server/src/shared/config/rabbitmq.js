@@ -87,7 +87,9 @@ class RabbitMQConnection {
 		this.reconnectAttempts += 1;
 		const delay = Math.min(1000 * 2 ** this.reconnectAttempts, this.maxReconnectDelay);
 
-		logger.warn(`Reconnecting to RabbitMQ in ${delay}ms (attempt ${this.reconnectAttempts})`);
+		logger.warn(
+			`Reconnecting to RabbitMQ in ${delay}ms (attempt ${this.reconnectAttempts})`,
+		);
 
 		setTimeout(() => {
 			this.connect().catch((err) => {

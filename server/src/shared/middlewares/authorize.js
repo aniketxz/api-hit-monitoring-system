@@ -15,7 +15,9 @@ const authorize =
 			}
 
 			if (!allowedRoles.includes(req.user.role)) {
-				return res.status(403).json(ResponseFormatter.error('Insufficient permission', 403));
+				return res
+					.status(403)
+					.json(ResponseFormatter.error('Insufficient permission', 403));
 			}
 
 			return next();

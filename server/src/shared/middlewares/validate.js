@@ -27,7 +27,9 @@ const validate = (schema) => (req, res, next) => {
 	});
 
 	if (errors.length) {
-		return res.status(400).json(ResponseFormatter.error('Validation failed', 400, errors));
+		return res
+			.status(400)
+			.json(ResponseFormatter.error('Validation failed', 400, errors));
 	}
 
 	next();

@@ -55,7 +55,9 @@ export class AuthController {
 				maxAge: config.cookie.expiresIn,
 			});
 
-			res.status(201).json(ResponseFormatter.success(user, 'User created successfully', 201));
+			res
+				.status(201)
+				.json(ResponseFormatter.success(user, 'User created successfully', 201));
 		} catch (error) {
 			next(error);
 		}
@@ -72,7 +74,9 @@ export class AuthController {
 				maxAge: config.cookie.expiresIn,
 			});
 
-			res.status(200).json(ResponseFormatter.success(user, 'User logged in successfully', 200));
+			res
+				.status(200)
+				.json(ResponseFormatter.success(user, 'User logged in successfully', 200));
 		} catch (error) {
 			next(error);
 		}
@@ -83,7 +87,9 @@ export class AuthController {
 			const userId = req.user.userId;
 			const result = await this.authService.getProfile(userId);
 
-			res.status(200).json(ResponseFormatter.success(result, 'Profile fetched successfully', 200));
+			res
+				.status(200)
+				.json(ResponseFormatter.success(result, 'Profile fetched successfully', 200));
 		} catch (error) {
 			next(error);
 		}

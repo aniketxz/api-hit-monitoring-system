@@ -12,7 +12,9 @@ const authenticate = async (req, res, next) => {
 		}
 
 		if (!token) {
-			return res.status(401).json(ResponseFormatter.error('Authentication token is required', 401));
+			return res
+				.status(401)
+				.json(ResponseFormatter.error('Authentication token is required', 401));
 		}
 
 		const decoded = jwt.verify(token, config.jwt.secret);
